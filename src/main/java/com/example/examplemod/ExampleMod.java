@@ -1,5 +1,8 @@
 package com.example.examplemod;
 
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -91,6 +94,14 @@ public class ExampleMod
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+
+    }
+
+    private void injectButton(ScreenEvent.Init evt) {
+        if (evt.getScreen() instanceof CreateWorldScreen cws) {
+            cws.addRenderableWidget(Button.builder(Component.literal("Test"), button -> {}).build());
+        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
